@@ -1,25 +1,10 @@
-import java.io.*;
-
 import weka.core.Instances;
-import weka.core.converters.ArffLoader.ArffReader;
-import weka.core.converters.ArffSaver;
 
 public class Preprocess {
 	public static void main(String[] args) {
 		System.out.println("Machine Learning - Programming Assignment 1");
-		Instances data = null;
-		
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader("data/input/churn.arff"));
-			ArffReader arffReader = new ArffReader(reader);
-			data = arffReader.getData();
-			data.setClassIndex(data.numAttributes()-1);
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Instances data = Utils.readFromFile("data/input/churn.arff");
+		data.setClassIndex(data.numAttributes()-1);
 		try {
 			// Account Length
 			data = Utils.discretizeAttribute(data, "2", 10);
@@ -39,16 +24,6 @@ public class Preprocess {
 			System.err.println("Filtering Attributes Failed!");
 			e.printStackTrace();
 		}
-		
-		try {
-			ArffSaver arffSaver = new ArffSaver();
-			arffSaver.setFile(new File("data/temp/filtered.arff"));
-			arffSaver.setInstances(data);
-			arffSaver.writeBatch();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		Utils.writeToFile(data, "data/temp/filtered.arff");
 	}
 }
