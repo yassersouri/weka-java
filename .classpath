@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/Yasser/Desktop/Sharif/Machine Learning/Assignments/2/code/lib/weka.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/Users/Yasser/Downloads/weka-3-7-7/doc/"/>
+			<attribute name="javadoc_location" value="file:/Users/Yasser/Downloads/weka-3-7-0/doc/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
