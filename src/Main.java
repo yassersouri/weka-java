@@ -4,6 +4,7 @@ import weka.core.Instances;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.Id3;
+import weka.classifiers.trees.J48;
 
 public class Main {
 	public static void main(String[] args) {
@@ -14,10 +15,30 @@ public class Main {
 		Instances data = Utils.readFromFile("data/temp/filtered.arff");
 		data.setClassIndex(data.numAttributes()-1);
 		
-		//build classifier
+		System.out.println("ID3");
+		evaluateId3(data);
+		
+		System.out.println("=====================================");
+		
+		System.out.println("C4.5 - REP");
+		evaluateC45(data, true);
+
+		System.out.println("=====================================");
+		
+		System.out.println("C4.5 - no REP");
+		evaluateC45(data, false);
+	}
+	
+	public static void evaluateId3(Instances data){
 		Id3 classifier = new Id3();
 		
-		//evaluate
+		evaluateClassifier(data, classifier);
+	}
+	
+	public static void evaluateC45(Instances data, boolean reducedErrorPruning){
+		J48 classifier = new J48();
+		
+		classifier.setReducedErrorPruning(reducedErrorPruning);
 		evaluateClassifier(data, classifier);
 	}
 	
@@ -39,7 +60,7 @@ public class Main {
 		double lowerBound = errorS - interval;
 		double upperBound = errorS + interval;
 		
-		System.out.print("10-fold Cross Validation with 95% confidence interval: ");
+		System.out.println(nFolds + "-fold Cross Validation with 95% confidence interval: ");
 		System.out.printf("[%.3f - %.3f]\n", lowerBound, upperBound);
 	}
 }
