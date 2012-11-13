@@ -2,7 +2,6 @@ import weka.core.Instances;
 
 public class Preprocess {
 	public static void main(String[] args) {
-		System.out.println("Machine Learning - Programming Assignment 1");
 		Instances data = Utils.readFromFile("data/input/churn.arff");
 		data.setClassIndex(data.numAttributes()-1);
 		try {
