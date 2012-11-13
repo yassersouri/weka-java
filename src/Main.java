@@ -1,10 +1,6 @@
 import java.io.*;
-
-import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.Remove;
 
 public class Main {
 	public static void main(String[] args) {
@@ -16,25 +12,13 @@ public class Main {
 			Instances instances = arffReader.getData();
 			instances.setClassIndex(instances.numAttributes()-1);
 			
-			Remove filter = new Remove();
-			filter.setInvertSelection(false);
-			filter.setAttributeIndices("4");
+			Instances data = null;
 			try {
-				filter.setInputFormat(instances);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
-			Instances newData = null;
-			try {
-				newData = Filter.useFilter(instances, filter);
+				data = Utils.removePhoneAttribute(instances);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				System.out.println("Removing Phone Attribute Failed!");
 				e.printStackTrace();
 			}
-			
 			
 			
 		} catch (FileNotFoundException e) {
