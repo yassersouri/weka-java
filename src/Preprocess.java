@@ -4,7 +4,7 @@ import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
 import weka.core.converters.ArffSaver;
 
-public class Main {
+public class Preprocess {
 	public static void main(String[] args) {
 		System.out.println("Machine Learning - Programming Assignment 1");
 		Instances data = null;
