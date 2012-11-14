@@ -5,6 +5,7 @@ import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.Id3;
 import weka.classifiers.trees.J48;
+import weka.classifiers.lazy.IBk;
 
 public class Main {
 	public static void main(String[] args) {
@@ -27,6 +28,12 @@ public class Main {
 		
 		System.out.println("C4.5 - no REP");
 		evaluateC45(data, false);
+		
+		System.out.println("=====================================");
+		
+		System.out.println("KNN - K=10");
+		evaluateKNN(data, 10);
+		
 	}
 	
 	public static void evaluateId3(Instances data){
@@ -39,6 +46,12 @@ public class Main {
 		J48 classifier = new J48();
 		
 		classifier.setReducedErrorPruning(reducedErrorPruning);
+		evaluateClassifier(data, classifier);
+	}
+	
+	public static void evaluateKNN(Instances data, int k){
+		IBk classifier = new IBk(k);
+		
 		evaluateClassifier(data, classifier);
 	}
 	
