@@ -16,6 +16,10 @@ public class Main {
 		Instances data = Utils.readFromFile("data/temp/filtered.arff");
 		data.setClassIndex(data.numAttributes()-1);
 		
+		
+		findBestK(data);
+		System.exit(0);
+		
 		System.out.println("ID3");
 		evaluateId3(data);
 		
@@ -34,6 +38,25 @@ public class Main {
 		System.out.println("KNN - K=10");
 		evaluateKNN(data, 10);
 		
+	}
+	
+	public static void findBestK(Instances data){
+		double[] error = new double[20];
+		for (int i = 0; i < 20; i++) {
+			IBk classifier = new IBk(i+1);
+			
+			try {
+				Evaluation eval = new Evaluation(data);
+				eval.crossValidateModel(classifier, data, 10, new Random(1));
+				error[i] = eval.meanAbsoluteError();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for (int i = 0; i < error.length; i++) {
+			System.out.println("k=" + (i+1) + " -> e=" + error[i]);
+		}
 	}
 	
 	public static void evaluateId3(Instances data){
