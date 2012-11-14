@@ -16,9 +16,14 @@ public class Main {
 		Instances data = Utils.readFromFile("data/temp/filtered.arff");
 		data.setClassIndex(data.numAttributes()-1);
 		
+		Instances data_knn = Utils.readFromFile("data/temp/knn.arff");
+		data_knn.setClassIndex(data_knn.numAttributes()-1);
 		
-		findBestK(data);
-		System.exit(0);
+		Instances original = Utils.readFromFile("data/input/churn.arff");
+		original.setClassIndex(original.numAttributes()-1);
+		
+//		findBestK(data_knn);
+//		System.exit(0);
 		
 		System.out.println("ID3");
 		evaluateId3(data);
@@ -26,17 +31,17 @@ public class Main {
 		System.out.println("=====================================");
 		
 		System.out.println("C4.5 - REP");
-		evaluateC45(data, true);
+		evaluateC45(original, true);
 
 		System.out.println("=====================================");
 		
 		System.out.println("C4.5 - no REP");
-		evaluateC45(data, false);
+		evaluateC45(original, false);
 		
 		System.out.println("=====================================");
 		
-		System.out.println("KNN - K=10");
-		evaluateKNN(data, 10);
+		System.out.println("KNN - K=1");
+		evaluateKNN(data_knn, 1);
 		
 	}
 	
@@ -53,9 +58,9 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-		
+		System.out.println();
 		for (int i = 0; i < error.length; i++) {
-			System.out.println("k=" + (i+1) + " -> e=" + error[i]);
+			System.out.print(error[i] + ",");
 		}
 	}
 	

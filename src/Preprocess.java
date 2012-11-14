@@ -23,6 +23,6 @@ public class Preprocess {
 			System.err.println("Filtering Attributes Failed!");
 			e.printStackTrace();
 		}
-		Utils.writeToFile(data, "data/temp/filtered.arff");
+		Utils.writeToFile(data, "data/temp/knn.arff");
 	}
 }
